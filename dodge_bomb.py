@@ -11,6 +11,22 @@ delta = {
     pg.K_RIGHT: (+5, 0),
 }
 
+def check_bound(rect:pg.rect) -> tuple[bool, bool]:
+    """
+    こうかとんRect，爆弾Rectが画面外 or 画面内かを判定する関数
+    引数：こうかとんRect or 爆弾Rect
+    戻り値：横方向，縦方向の判定結果タプル（True：画面内／False：画面外）
+    """
+
+    yoko, tate = True, True
+    if rect.left < 0 or WIDTH < rect.right:  # 横方向判定
+        yoko = False
+    if rect.top < 0 or HEIGHT < rect.bottom:  # 縦方向判定
+        tate = False
+    return yoko, tate
+
+
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -18,8 +34,8 @@ def main():
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
     # こうかとんSurface（kk_img）からこうかとんRect（kk_rct）を抽出する
-    kk_rct = kk_img.get_rect()
-    kk_rct.center = 900, 400
+    kk_rct = kk_img.get_rect() # 
+    kk_rct.center = 900, 400 # 中心を設定する 
 
     bd_img = pg.Surface((20, 20)) # 練習1
     pg.draw.circle(bd_img, (255, 0, 0), (10, 10), 10)
@@ -46,10 +62,17 @@ def main():
                 sum_mv[0] += mv[0]
                 sum_mv[1] += mv[1]
         kk_rct.move_ip(sum_mv)
-        screen.blit(bg_img, [0, 0])
-        #screen.blit(kk_img, [900, 400])
+        if check_bound(kk_rct) != (True, True):
+            kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
+
+        screen.blit(bg_img, [0, 0]) # 背景画像
         screen.blit(kk_img, kk_rct)
         bd_rct.move_ip(vx, vy)
+        yoko, tate = check_bound(bd_rct)
+        if not yoko:  # 横方向に画面外だったら
+            vx *= -1
+        if not tate:  # 縦方向に範囲外だったら
+            vy *= -1
         screen.blit(bd_img, bd_rct)
         pg.display.update()
         tmr += 1
