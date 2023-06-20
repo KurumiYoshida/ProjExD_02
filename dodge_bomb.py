@@ -12,13 +12,13 @@ delta = {
 }
 kk_img = pg.image.load("ex02/fig/3.png")
 #kk_imgs = [pg.transform.rotozoom(kk_img, 0, 2.0), pg.transform.rotozoom(kk_img, 45, 2.0), pg.transform.rotozoom(kk_img, 90, 2.0), pg.transform.rotozoom(kk_img, 135, 2.0), pg.transform.rotozoom(kk_img, 180, 2.0), pg.transform.rotozoom(kk_img, 225, 2.0), pg.transform.rotozoom(kk_img, 270, 2.0), pg.transform.rotozoom(kk_img, 315, 2.0), pg.transform.rotozoom(kk_img, 360, 2.0)]
-kk_imgs4 = pg.transform.flip(kk_img, True, False)
 kk_imgs1 = pg.transform.rotozoom(kk_img, -90, 1.0)
-kk_imgs3 = pg.transform.flip(kk_imgs1, True, False)
 kk_imgs2 = pg.transform.rotozoom(kk_img, -90, 1.0)
-kk_imgs7 = pg.transform.rotozoom(kk_img, 45, 1.0)
+kk_imgs3 = pg.transform.flip(kk_imgs1, True, False)
+kk_imgs4 = pg.transform.flip(kk_img, True, False)
 kk_imgs5 = pg.transform.flip(kk_imgs7, True, False)
 kk_imgs6 = pg.transform.rotozoom(kk_imgs2, 180, 1.0)
+kk_imgs7 = pg.transform.rotozoom(kk_img, 45, 1.0)
 
 def init_kk_img():
     return{
@@ -56,8 +56,9 @@ def main():
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
+    kk2_img = pg.image.load("ex02/fig/4.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
-    kk_imgs = [pg.transform.rotozoom(kk_img, 0, 2.0), pg.transform.rotozoom(kk_img, 45, 2.0), pg.transform.rotozoom(kk_img, 90, 2.0), pg.transform.rotozoom(kk_img, 135, 2.0), pg.transform.rotozoom(kk_img, 180, 2.0), pg.transform.rotozoom(kk_img, 225, 2.0), pg.transform.rotozoom(kk_img, 270, 2.0), pg.transform.rotozoom(kk_img, 315, 2.0), pg.transform.rotozoom(kk_img, 360, 2.0)]
+    #kk_imgs = [pg.transform.rotozoom(kk_img, 0, 2.0), pg.transform.rotozoom(kk_img, 45, 2.0), pg.transform.rotozoom(kk_img, 90, 2.0), pg.transform.rotozoom(kk_img, 135, 2.0), pg.transform.rotozoom(kk_img, 180, 2.0), pg.transform.rotozoom(kk_img, 225, 2.0), pg.transform.rotozoom(kk_img, 270, 2.0), pg.transform.rotozoom(kk_img, 315, 2.0), pg.transform.rotozoom(kk_img, 360, 2.0)]
     # こうかとんSurface（kk_img）からこうかとんRect（kk_rct）を抽出する
     kk_rct = kk_img.get_rect() # 
     kk_rct.center = 900, 400 # 中心を設定する 
@@ -84,6 +85,7 @@ def main():
                 return
             
         if kk_rct.colliderect(bd_rct):  # 練習５
+            print(kk2_img)
             print("ゲームオーバー")
             return   # ゲームオーバー
             
